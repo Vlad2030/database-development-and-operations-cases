@@ -1,7 +1,7 @@
 import datetime
 
 from database import Base
-from sqlalchemy import DATETIME, Column, Integer, String
+from sqlalchemy import DateTime, Column, Integer, String
 
 
 class PetsDatabase(Base):
@@ -11,5 +11,5 @@ class PetsDatabase(Base):
     name = Column(String)
     age = Column(Integer, default=0.0)
     type = Column(String)
-    breed = Column(String)
-    datetime = Column(DATETIME, default=datetime.datetime.now())
+    breed = Column(String, nullable=True)
+    datetime = Column(DateTime, default=datetime.datetime.now())

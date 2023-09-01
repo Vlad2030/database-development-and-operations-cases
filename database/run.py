@@ -1,12 +1,12 @@
 import asyncio
 from crud import PetsCRUD
-from database import get_async_session, Base, engine
+from database import async_session, Base, engine
 from loguru import logger
 import random
 import pets_data
 
 
-pets_amount = 50
+pets_amount = 500
 
 
 async def main() -> None:
@@ -14,7 +14,7 @@ async def main() -> None:
         await conn.run_sync(Base.metadata.create_all)
     logger.info("Pets database created!")
 
-    pets = PetsCRUD(session=await get_async_session())
+    pets = PetsCRUD(async_session())
 
     for _ in range(pets_amount):
         await pets.create(
@@ -24,12 +24,6 @@ async def main() -> None:
             breed=None,
         )
     logger.success(f"Created {pets_amount} pets!")
-
-    all_database = await pets.get_all()
-    print(all_database)
-    logger.info("Get all pets!")
-
-    return None
 
 
 if __name__ == "__main__":
